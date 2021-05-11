@@ -1,4 +1,4 @@
-const Video = ({ title, link, rating }) => {
+const Video = ({ id, title, link, rating, deleteVideo }) => {
   return (
     <article>
       <h2>{title}</h2>
@@ -13,6 +13,9 @@ const Video = ({ title, link, rating }) => {
         allowFullScreen
       ></iframe>
       <p>Rating: {rating}</p>
+      <button type="button" onClick={() => deleteVideo(id)}>
+        Delete video
+      </button>
     </article>
   );
 };
