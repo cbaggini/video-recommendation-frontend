@@ -65,17 +65,32 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
         placeholder="search video"
         onChange={resetSearch}
       ></input>
-      <button type="button" onClick={() => setSearch(searchBar.current.value)}>
+      <button
+        type="button"
+        aria-label="search"
+        onClick={() => setSearch(searchBar.current.value)}
+      >
         Search
       </button>
-      <button type="button" value="title" onClick={toggleSorting}>
+      <button
+        type="button"
+        value="title"
+        aria-label="sort-by-title"
+        onClick={toggleSorting}
+      >
         Sort by title <i className=""></i>
       </button>
-      <button type="button" value="rating" onClick={toggleSorting}>
+      <button
+        type="button"
+        value="rating"
+        aria-label="sort-by-rating"
+        onClick={toggleSorting}
+      >
         Sort by rating <i className="fa fa-angle-double-down"></i>
       </button>
       <button
         type="button"
+        aria-label="make-add-video-visible"
         onClick={() => setIsVisible((isVisible) => !isVisible)}
       >
         Add video
@@ -94,7 +109,9 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
             placeholder="add video link"
             onChange={handleChange}
           ></input>
-          <button type="submit">Submit</button>
+          <button type="submit" aria-label="send-new-video">
+            Submit
+          </button>
         </form>
       )}
     </nav>

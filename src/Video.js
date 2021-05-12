@@ -36,14 +36,26 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
       ></iframe>
       <p>
         Rating: {ratings}{" "}
-        <button type="button" onClick={() => changeRating(true)}>
+        <button
+          type="button"
+          aria-label="increase-rating"
+          onClick={() => changeRating(true)}
+        >
           <i className="fa fa-thumbs-up"></i>
         </button>
-        <button type="button" onClick={() => changeRating(false)}>
+        <button
+          type="button"
+          aria-label="decrease-rating"
+          onClick={() => changeRating(false)}
+        >
           <i className="fa fa-thumbs-down"></i>
         </button>
       </p>
-      <button type="button" onClick={() => deleteVideo(id)}>
+      <button
+        type="button"
+        aria-label="delete-video"
+        onClick={() => deleteVideo(id)}
+      >
         Delete video
       </button>
     </article>
