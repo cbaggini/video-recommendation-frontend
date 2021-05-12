@@ -30,7 +30,7 @@ article {
   max-width: 500px;
 }
 
-h3 {
+h2 {
   height: 20%;
 }
 
@@ -39,4 +39,9 @@ h3 {
     display: flex;
     flex-flow: column;
   }
+}
+
+.btn-primary,
+.btn-info {
+  color: black;
 }

@@ -23,7 +23,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
 
   return (
     <article>
-      <h3>{title}</h3>
+      <h2>{title}</h2>
 
       <iframe
         width="460"
