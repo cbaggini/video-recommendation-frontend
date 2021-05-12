@@ -1,4 +1,26 @@
-const Video = ({ id, title, link, rating, deleteVideo }) => {
+import { useState } from "react";
+
+const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
+  const [ratings, setRatings] = useState(rating);
+
+  const changeRating = (increase) => {
+    const newRating = increase ? ratings + 1 : ratings - 1;
+    fetch(baseUrl + "/" + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ rating: newRating }),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          alert("Rating could not be changed");
+        }
+        return response.json();
+      })
+      .then((data) => setRatings((ratings) => data.rating));
+  };
+
   return (
     <article>
       <h2>{title}</h2>
@@ -6,13 +28,21 @@ const Video = ({ id, title, link, rating, deleteVideo }) => {
       <iframe
         width="460"
         height="315"
-        src={"https://www.youtube.com/embed/" + link.split("=").slice(-1)}
+        src={"https://www.youtube.com/embed/" + link.split("?v=").slice(-1)}
         title={title}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
-      <p>Rating: {rating}</p>
+      <p>
+        Rating: {ratings}{" "}
+        <button type="button" onClick={() => changeRating(true)}>
+          <i className="fa fa-thumbs-up"></i>
+        </button>
+        <button type="button" onClick={() => changeRating(false)}>
+          <i className="fa fa-thumbs-down"></i>
+        </button>
+      </p>
       <button type="button" onClick={() => deleteVideo(id)}>
         Delete video
       </button>

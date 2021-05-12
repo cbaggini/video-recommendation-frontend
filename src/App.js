@@ -4,18 +4,16 @@ import React, { useState, useEffect } from "react";
 import Video from "./Video";
 import NavBar from "./NavBar";
 
-const baseUrl = process.env.PORT ? "here app URL" : "http://localhost:5000";
+const baseUrl = process.env.PORT
+  ? "https://video-recommendation-backend.cbaggini.repl.co"
+  : "http://localhost:5000";
 
 function App() {
   const [videos, setVideos] = useState([]);
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState("desc_rating");
 
-  const deleteVideo = (id) => {
-    // send delete request, then reset search
-  };
-
-  useEffect(() => {
+  const getVideos = () => {
     let url = baseUrl + `?order=${order}`;
     if (search !== "") {
       url += `&title=${search}`;
@@ -23,16 +21,45 @@ function App() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setVideos(data));
-  }, [search, order]);
+  };
+
+  const deleteVideo = (id) => {
+    fetch(`${baseUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Access-Control-Allow-Origin": baseUrl,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        data.message ? alert(data.message) : getVideos();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Could not delete video");
+      });
+  };
+
+  useEffect(getVideos, [search, order]);
 
   return (
     <>
       <header>
         <h1>Video recommendation system</h1>
       </header>
-      <NavBar setSearch={setSearch} setOrder={setOrder} />
+      <NavBar
+        setSearch={setSearch}
+        setOrder={setOrder}
+        baseUrl={baseUrl}
+        getVideos={getVideos}
+      />
       {videos.map((el) => (
-        <Video key={el.id} {...el} deleteVideo={deleteVideo} />
+        <Video
+          key={el.id}
+          {...el}
+          deleteVideo={deleteVideo}
+          baseUrl={baseUrl}
+        />
       ))}
     </>
   );

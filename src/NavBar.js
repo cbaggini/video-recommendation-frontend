@@ -1,7 +1,36 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 
-const NavBar = ({ setSearch, setOrder }) => {
+const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
   const searchBar = useRef();
+  const [isVisible, setIsVisible] = useState(false);
+  const [newVideo, setNewVideo] = useState({});
+
+  const handleChange = (e) => {
+    setNewVideo({ ...newVideo, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(baseUrl + "/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newVideo),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          alert("Invalid input");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        getVideos();
+        setNewVideo({});
+        setIsVisible(false);
+      });
+  };
 
   const resetSearch = () => {
     searchBar.current.value === "" && setSearch("");
@@ -27,8 +56,6 @@ const NavBar = ({ setSearch, setOrder }) => {
       setOrder("desc_rating");
       e.target.lastElementChild.className = "fa fa-angle-double-down";
     }
-    console.log(e.target.value);
-    console.log(e.target.lastElementChild.className);
   };
   return (
     <nav>
@@ -38,15 +65,36 @@ const NavBar = ({ setSearch, setOrder }) => {
         placeholder="search video"
         onChange={resetSearch}
       ></input>
-      <button onClick={() => setSearch(searchBar.current.value.toLowerCase())}>
-        Search
-      </button>
-      <button value="title" onClick={toggleSorting}>
+      <button type="button">Search</button>
+      <button type="button" value="title" onClick={toggleSorting}>
         Sort by title <i className=""></i>
       </button>
-      <button value="rating" onClick={toggleSorting}>
+      <button type="button" value="rating" onClick={toggleSorting}>
         Sort by rating <i className="fa fa-angle-double-down"></i>
       </button>
+      <button
+        type="button"
+        onClick={() => setIsVisible((isVisible) => !isVisible)}
+      >
+        Add video
+      </button>
+      {isVisible && (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            placeholder="add video title"
+            onChange={handleChange}
+          ></input>
+          <input
+            type="text"
+            name="url"
+            placeholder="add video link"
+            onChange={handleChange}
+          ></input>
+          <button type="submit">Submit</button>
+        </form>
+      )}
     </nav>
   );
 };
