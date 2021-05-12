@@ -4,9 +4,10 @@ import React, { useState, useEffect } from "react";
 import Video from "./Video";
 import NavBar from "./NavBar";
 
-const baseUrl = process.env.PORT
-  ? "https://video-recommendation-backend.cbaggini.repl.co"
-  : "http://localhost:5000";
+const baseUrl =
+  process.env.REACT_APP_MODE === "prod"
+    ? "https://video-recommendation-backend.cbaggini.repl.co"
+    : "http://localhost:5000";
 
 function App() {
   const [videos, setVideos] = useState([]);
