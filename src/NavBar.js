@@ -65,7 +65,9 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
         placeholder="search video"
         onChange={resetSearch}
       ></input>
-      <button type="button">Search</button>
+      <button type="button" onClick={() => setSearch(searchBar.current.value)}>
+        Search
+      </button>
       <button type="button" value="title" onClick={toggleSorting}>
         Sort by title <i className=""></i>
       </button>
