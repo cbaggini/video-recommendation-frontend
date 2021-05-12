@@ -23,7 +23,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
 
   return (
     <article>
-      <h2>{title}</h2>
+      <h3>{title}</h3>
 
       <iframe
         width="460"
@@ -38,6 +38,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
         Rating: {ratings}{" "}
         <button
           type="button"
+          className="like btn btn-light"
           aria-label="increase-rating"
           onClick={() => changeRating(true)}
         >
@@ -45,6 +46,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
         </button>
         <button
           type="button"
+          className="like btn btn-light"
           aria-label="decrease-rating"
           onClick={() => changeRating(false)}
         >
@@ -53,6 +55,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
       </p>
       <button
         type="button"
+        className="btn btn-danger"
         aria-label="delete-video"
         onClick={() => deleteVideo(id)}
       >

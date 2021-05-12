@@ -1,4 +1,42 @@
-button:focus,
-input:focus {
-  border: 2px red solid;
+.upper {
+  margin: 0.5rem;
+}
+
+nav,
+section {
+  margin: 2rem;
+}
+
+input {
+  margin: 0.5rem;
+}
+
+h1 {
+  text-align: center;
+  margin: 1rem;
+}
+
+.like {
+  width: 60px;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+article {
+  margin: 2rem;
+  max-width: 500px;
+}
+
+h3 {
+  height: 20%;
+}
+
+@media only screen and (max-width: 500px) {
+  section {
+    display: flex;
+    flex-flow: column;
+  }
 }

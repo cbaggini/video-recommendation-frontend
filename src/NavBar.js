@@ -66,6 +66,7 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
         onChange={resetSearch}
       ></input>
       <button
+        className="upper btn btn-primary"
         type="button"
         aria-label="search"
         onClick={() => setSearch(searchBar.current.value)}
@@ -75,21 +76,28 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
       <button
         type="button"
         value="title"
+        className="upper btn btn-warning"
         aria-label="sort-by-title"
         onClick={toggleSorting}
       >
-        Sort by title <i className=""></i>
+        Sort by title <i className="" style={{ pointerEvents: "none" }}></i>
       </button>
       <button
         type="button"
         value="rating"
+        className="upper btn btn-warning"
         aria-label="sort-by-rating"
         onClick={toggleSorting}
       >
-        Sort by rating <i className="fa fa-angle-double-down"></i>
+        Sort by rating{" "}
+        <i
+          className="fa fa-angle-double-down"
+          style={{ pointerEvents: "none" }}
+        ></i>
       </button>
       <button
         type="button"
+        className="upper btn btn-info"
         aria-label="make-add-video-visible"
         onClick={() => setIsVisible((isVisible) => !isVisible)}
       >
@@ -109,7 +117,11 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
             placeholder="add video link"
             onChange={handleChange}
           ></input>
-          <button type="submit" aria-label="send-new-video">
+          <button
+            type="submit"
+            className="upper btn btn-primary"
+            aria-label="send-new-video"
+          >
             Submit
           </button>
         </form>

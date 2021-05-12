@@ -54,14 +54,16 @@ function App() {
         baseUrl={baseUrl}
         getVideos={getVideos}
       />
-      {videos.map((el) => (
-        <Video
-          key={el.id}
-          {...el}
-          deleteVideo={deleteVideo}
-          baseUrl={baseUrl}
-        />
-      ))}
+      <section>
+        {videos.map((el) => (
+          <Video
+            key={el.id}
+            {...el}
+            deleteVideo={deleteVideo}
+            baseUrl={baseUrl}
+          />
+        ))}
+      </section>
     </>
   );
 }
