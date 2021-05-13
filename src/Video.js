@@ -26,7 +26,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
       <h2>{title}</h2>
 
       <iframe
-        width="460"
+        width="100%"
         height="315"
         src={"https://www.youtube.com/embed/" + link.split("?v=").slice(-1)}
         title={title}
