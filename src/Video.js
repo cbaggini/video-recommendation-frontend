@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
+const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
   const [ratings, setRatings] = useState(rating);
 
   const changeRating = (increase) => {
@@ -34,7 +34,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
-      <p>
+      <p className="rating">
         Rating: {ratings}{" "}
         <button
           type="button"
@@ -53,6 +53,7 @@ const Video = ({ id, title, link, rating, deleteVideo, baseUrl }) => {
           <i className="fa fa-thumbs-down"></i>
         </button>
       </p>
+      <p>Added on: {new Date(datetime).toUTCString()}</p>
       <button
         type="button"
         className="btn btn-danger"

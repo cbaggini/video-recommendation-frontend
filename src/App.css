@@ -7,13 +7,32 @@ section {
   margin: 2rem;
 }
 
+header {
+  background-color: lightblue;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  background-color: lightgoldenrodyellow;
+  border-radius: 5px;
+  border: 2px solid darkgoldenrod;
+  padding: 2rem;
+  margin: 2rem;
+  max-width: 500px;
+}
+
+.rating {
+  padding-top: 1rem;
+}
+
 input {
   margin: 0.5rem;
 }
 
 h1 {
   text-align: center;
-  margin: 1rem;
+  padding: 1rem;
 }
 
 .like {
@@ -25,13 +44,20 @@ section {
   flex-wrap: wrap;
 }
 
-article {
-  margin: 2rem;
-  max-width: 500px;
+h2 {
+  height: 25%;
 }
 
-h2 {
-  height: 20%;
+@media only screen and (max-width: 500px) {
+  h2 {
+    height: 30%;
+  }
+  article {
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .btn-primary,
