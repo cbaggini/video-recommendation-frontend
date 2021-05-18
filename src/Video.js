@@ -53,7 +53,7 @@ const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
           <i className="fa fa-thumbs-down"></i>
         </button>
       </p>
-      <p>Added on: {new Date(datetime).toUTCString()}</p>
+      {datetime && <p>Added on: {new Date(datetime).toUTCString()}</p>}
       <button
         type="button"
         className="btn btn-danger"

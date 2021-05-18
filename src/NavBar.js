@@ -12,24 +12,34 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(baseUrl + "/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newVideo),
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          alert("Invalid input");
-        }
-        return response.json();
+    if (newVideo.url.includes("www.youtube.com") && newVideo.title) {
+      fetch(baseUrl + "/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newVideo),
       })
-      .then((data) => {
-        getVideos();
-        setNewVideo({});
-        setIsVisible(false);
-      });
+        .then((response) => {
+          if (response.status !== 200) {
+            alert("Invalid input");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          getVideos();
+          setNewVideo({});
+          setIsVisible(false);
+        });
+    } else if (newVideo.title) {
+      alert("Your URL is not a valid YouTube video");
+    } else if (newVideo.url.includes("www.youtube.com/watch?v=")) {
+      alert("Title should not be empty");
+    } else {
+      alert(
+        "Your URL is not a valid YouTube video and title should not be empty"
+      );
+    }
   };
 
   const resetSearch = () => {
