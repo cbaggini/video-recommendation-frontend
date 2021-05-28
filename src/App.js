@@ -19,7 +19,12 @@ function App() {
     if (search !== "") {
       url += `&title=${search}`;
     }
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": baseURL,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setVideos(data));
   };

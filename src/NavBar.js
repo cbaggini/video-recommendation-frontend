@@ -16,6 +16,7 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
       fetch(baseUrl + "/", {
         method: "POST",
         headers: {
+          "Access-Control-Allow-Origin": baseURL,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newVideo),
