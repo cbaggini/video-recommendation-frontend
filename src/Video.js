@@ -8,7 +8,7 @@ const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
     fetch(baseUrl + "/" + id, {
       method: "PUT",
       headers: {
-        "Access-Control-Allow-Origin": baseURL,
+        "Access-Control-Allow-Origin": baseUrl,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ rating: newRating }),

@@ -22,7 +22,7 @@ function App() {
     fetch(url, {
       method: "GET",
       headers: {
-        "Access-Control-Allow-Origin": baseURL,
+        "Access-Control-Allow-Origin": baseUrl,
       },
     })
       .then((res) => res.json())
