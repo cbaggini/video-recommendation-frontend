@@ -43,7 +43,10 @@ const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
           aria-label="increase-rating"
           onClick={(e) => {
             changeRating(true);
-            if (e.target.parentElement.className === "like btn btn-light") {
+            if (
+              e.target.parentElement.className === "like btn btn-light" ||
+              e.target.parentElement.className === "like btn btn-success"
+            ) {
               e.target.parentElement.className = "like btn btn-success";
               setTimeout(() => {
                 e.target.parentElement.className = "like btn btn-light";
@@ -64,7 +67,10 @@ const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
           aria-label="decrease-rating"
           onClick={(e) => {
             changeRating(false);
-            if (e.target.parentElement.className === "like btn btn-light") {
+            if (
+              e.target.parentElement.className === "like btn btn-light" ||
+              e.target.parentElement.className === "like btn btn-danger"
+            ) {
               e.target.parentElement.className = "like btn btn-danger";
               setTimeout(() => {
                 e.target.parentElement.className = "like btn btn-light";
