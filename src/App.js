@@ -38,7 +38,12 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        data.message ? alert(data.message) : getVideos();
+        if (data.message) {
+          alert(data.message);
+        } else {
+          getVideos();
+          alert("Video successfully deleted");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -50,9 +55,6 @@ function App() {
 
   return (
     <>
-      <header>
-        <h1>Video recommendation system</h1>
-      </header>
       <NavBar
         setSearch={setSearch}
         setOrder={setOrder}
@@ -60,14 +62,18 @@ function App() {
         getVideos={getVideos}
       />
       <section>
-        {videos.map((el) => (
-          <Video
-            key={el.id}
-            {...el}
-            deleteVideo={deleteVideo}
-            baseUrl={baseUrl}
-          />
-        ))}
+        {videos.length > 0 ? (
+          videos.map((el) => (
+            <Video
+              key={el.id}
+              {...el}
+              deleteVideo={deleteVideo}
+              baseUrl={baseUrl}
+            />
+          ))
+        ) : (
+          <h3>No videos found for your search term</h3>
+        )}
       </section>
     </>
   );

@@ -11,6 +11,17 @@ header {
   background-color: lightblue;
 }
 
+header,
+nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
 article {
   display: flex;
   flex-direction: column;

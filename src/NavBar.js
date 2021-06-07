@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
   const searchBar = useRef();
@@ -12,7 +14,11 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (newVideo.url.includes("www.youtube.com") && newVideo.title) {
+    if (
+      newVideo.url &&
+      newVideo.url.includes("www.youtube.com") &&
+      newVideo.title
+    ) {
       fetch(baseUrl + "/", {
         method: "POST",
         headers: {
@@ -31,10 +37,14 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
           getVideos();
           setNewVideo({});
           setIsVisible(false);
+          alert("Video successfully added");
         });
     } else if (newVideo.title) {
       alert("Your URL is not a valid YouTube video");
-    } else if (newVideo.url.includes("www.youtube.com/watch?v=")) {
+    } else if (
+      newVideo.url &&
+      newVideo.url.includes("www.youtube.com/watch?v=")
+    ) {
       alert("Title should not be empty");
     } else {
       alert(
@@ -48,96 +58,75 @@ const NavBar = ({ setSearch, setOrder, baseUrl, getVideos }) => {
   };
 
   const toggleSorting = (e) => {
-    if (
-      e.target.value === "title" &&
-      e.target.lastElementChild.className === "fa fa-angle-double-down"
-    ) {
-      setOrder("desc");
-      e.target.lastElementChild.className = "fa fa-angle-double-up";
-    } else if (e.target.value === "title") {
-      setOrder("asc");
-      e.target.lastElementChild.className = "fa fa-angle-double-down";
-    } else if (
-      e.target.value === "rating" &&
-      e.target.lastElementChild.className === "fa fa-angle-double-down"
-    ) {
-      setOrder("asc_rating");
-      e.target.lastElementChild.className = "fa fa-angle-double-up";
-    } else {
-      setOrder("desc_rating");
-      e.target.lastElementChild.className = "fa fa-angle-double-down";
-    }
+    setOrder(e.target.value);
   };
+
   return (
-    <nav>
-      <input
-        type="text"
-        ref={searchBar}
-        placeholder="search video"
-        onChange={resetSearch}
-      ></input>
-      <button
-        className="upper btn btn-primary"
-        type="button"
-        aria-label="search"
-        onClick={() => setSearch(searchBar.current.value)}
-      >
-        Search
-      </button>
-      <button
-        type="button"
-        value="title"
-        className="upper btn btn-warning"
-        aria-label="sort-by-title"
-        onClick={toggleSorting}
-      >
-        Sort by title <i className="" style={{ pointerEvents: "none" }}></i>
-      </button>
-      <button
-        type="button"
-        value="rating"
-        className="upper btn btn-warning"
-        aria-label="sort-by-rating"
-        onClick={toggleSorting}
-      >
-        Sort by rating{" "}
-        <i
-          className="fa fa-angle-double-down"
-          style={{ pointerEvents: "none" }}
-        ></i>
-      </button>
-      <button
-        type="button"
-        className="upper btn btn-info"
-        aria-label="make-add-video-visible"
-        onClick={() => setIsVisible((isVisible) => !isVisible)}
-      >
-        Add video
-      </button>
-      {isVisible && (
-        <form onSubmit={handleSubmit}>
+    <>
+      <header>
+        <h1>Video recommendation system</h1>
+        <div className="search">
           <input
             type="text"
-            name="title"
-            placeholder="add video title"
-            onChange={handleChange}
-          ></input>
-          <input
-            type="text"
-            name="url"
-            placeholder="add video link"
-            onChange={handleChange}
+            ref={searchBar}
+            placeholder="search video"
+            onChange={resetSearch}
           ></input>
           <button
-            type="submit"
             className="upper btn btn-primary"
-            aria-label="send-new-video"
+            type="button"
+            aria-label="search"
+            onClick={() => setSearch(searchBar.current.value)}
           >
-            Submit
+            Search
           </button>
-        </form>
-      )}
-    </nav>
+        </div>
+      </header>
+      <nav>
+        <select onChange={toggleSorting}>
+          <option value="desc_rating">Rating - highest to lowest</option>
+          <option value="asc_rating">Rating - lowest to highest</option>
+          <option value="asc">Title - A to Z</option>
+          <option value="desc">Title - Z to A</option>
+        </select>
+
+        <Button
+          variant="primary"
+          onClick={() => setIsVisible((isVisible) => !isVisible)}
+        >
+          Add video
+        </Button>
+
+        <Modal show={isVisible} onHide={() => setIsVisible(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add a new video</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="title"
+                placeholder="add video title"
+                onChange={handleChange}
+              ></input>
+              <input
+                type="text"
+                name="url"
+                placeholder="add video link"
+                onChange={handleChange}
+              ></input>
+              <button
+                type="submit"
+                className="upper btn btn-primary"
+                aria-label="send-new-video"
+              >
+                Submit
+              </button>
+            </form>
+          </Modal.Body>
+        </Modal>
+      </nav>
+    </>
   );
 };
 
