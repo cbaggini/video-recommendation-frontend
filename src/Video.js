@@ -41,7 +41,20 @@ const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
           type="button"
           className="like btn btn-light"
           aria-label="increase-rating"
-          onClick={() => changeRating(true)}
+          onClick={(e) => {
+            changeRating(true);
+            if (e.target.parentElement.className === "like btn btn-light") {
+              e.target.parentElement.className = "like btn btn-success";
+              setTimeout(() => {
+                e.target.parentElement.className = "like btn btn-light";
+              }, 2000);
+            } else {
+              e.target.className = "like btn btn-success";
+              setTimeout(() => {
+                e.target.className = "like btn btn-light";
+              }, 2000);
+            }
+          }}
         >
           <i className="fa fa-thumbs-up"></i>
         </button>
@@ -49,7 +62,20 @@ const Video = ({ id, title, link, rating, datetime, deleteVideo, baseUrl }) => {
           type="button"
           className="like btn btn-light"
           aria-label="decrease-rating"
-          onClick={() => changeRating(false)}
+          onClick={(e) => {
+            changeRating(false);
+            if (e.target.parentElement.className === "like btn btn-light") {
+              e.target.parentElement.className = "like btn btn-danger";
+              setTimeout(() => {
+                e.target.parentElement.className = "like btn btn-light";
+              }, 2000);
+            } else {
+              e.target.className = "like btn btn-danger";
+              setTimeout(() => {
+                e.target.className = "like btn btn-light";
+              }, 2000);
+            }
+          }}
         >
           <i className="fa fa-thumbs-down"></i>
         </button>
